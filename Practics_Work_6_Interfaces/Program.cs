@@ -7,11 +7,11 @@
         const string bombName = "Бомбардувальник";
         static void Main(string[] args)
         {
-            Console.InputEncoding = System.Text.Encoding.UTF8;
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.InputEncoding = System.Text.Encoding.Unicode;
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             Console.WriteLine("Вітаємо в програмі розрахунку вартості " +
                                                              "літаків!");
-            TypeInput();
+            for (int i = 0; i < 5; i++) { TypeInput(); }
         }
         static void ResultOutput(IParent parent, string planeType)
         {
@@ -25,13 +25,17 @@
             {
                 try
                 {
-
+                    Console.Write("Введіть тип літака: ");
                     planeType = Console.ReadLine();
                     if (planeType == jetName ||
                         planeType == fightName ||
                         planeType == bombName)
                     {
                         break;
+                    }
+                    else if (planeType == "")
+                    {
+                        throw new ArgumentNullException();
                     }
                     else
                     {
@@ -50,6 +54,7 @@
                                       "Повторіть спробу.");
                 }
             }
+            GeneralInput(planeType);
         }
         static void GeneralInput(string planeType)
         {
@@ -59,7 +64,7 @@
             {
                 try
                 {
-
+                    Console.Write("Введіть максимальну швидкість літака: ");
                     planeSpeed = Int32.Parse(Console.ReadLine());
                     if (planeSpeed > 0) { break; }
                     else
@@ -69,18 +74,22 @@
                 }
                 catch (ArgumentNullException)
                 {
-                    Console.WriteLine("Повторіть спробу.");
+                    Console.WriteLine("Введено порожній рядок. " +
+                                      "Повторіть спробу.");
                 }
                 catch (ArgumentException)
                 {
-                    Console.WriteLine("Повторіть спробу.");
+                    Console.WriteLine("Введене значення максимальної " +
+                                      "швидкості не підтримується. " +
+                                      "Повторіть спробу.");
                 }
             }
             while (true)
             {
                 try
                 {
-
+                    Console.Write("Введіть максимальну висоту польоту " +
+                                                             "літака: ");
                     planeFlightHeight = Int32.Parse(Console.ReadLine());
                     if (planeFlightHeight > 0) { break; }
                     else
@@ -90,11 +99,14 @@
                 }
                 catch (ArgumentNullException)
                 {
-                    Console.WriteLine("Повторіть спробу.");
+                    Console.WriteLine("Введено порожній рядок. " +
+                                      "Повторіть спробу.");
                 }
                 catch (ArgumentException)
                 {
-                    Console.WriteLine("Повторіть спробу.");
+                    Console.WriteLine("Введене значення максимальної висоти " +
+                                      "не підтримується. " +
+                                      "Повторіть спробу.");
                 }
             }
             switch (planeType)
@@ -123,6 +135,8 @@
             {
                 try
                 {
+                    Console.Write("Введіть максимальну кількість бомб," +
+                                          " яку може перевезти літак: ");
                     bombCount = Int32.Parse(Console.ReadLine());
                     if (bombCount >= 0) { break; }
                     else
@@ -132,11 +146,14 @@
                 }
                 catch (ArgumentNullException)
                 {
-                    Console.WriteLine("Повторіть спробу.");
+                    Console.WriteLine("Введено порожній рядок. " +
+                                      "Повторіть спробу.");
                 }
                 catch (ArgumentException)
                 {
-                    Console.WriteLine("Повторіть спробу.");
+                    Console.WriteLine("Введене значення кількості бомб " +
+                                      "не підтримується. " +
+                                      "Повторіть спробу.");
                 }
             }
             EvalSwitch(type, speed, altitude, bombCount);
